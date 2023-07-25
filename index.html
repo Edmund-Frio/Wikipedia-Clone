@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Wikipedia Clone</title>
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <div class="logo" alt="Wikipedia Logo">
+          <img src="images/output-onlinepngtools.png" />
+          WIKIPEDIA
+          <span id="subtext"> by Edmund Frio </span>
+        </div>
+        <form id="search-form">
+          <input
+            placeholder="What do you want to search?"
+            type="text"
+            id="search-input"
+            autocomplete="off"
+            autofocus
+          />
+          <button type="submit" id="submitBtn" class="submit-btn">
+            <i class='bx bx-search'></i>
+          </button>
+        </form>
+      </header>
+      <div id="featured-display">
+        <!-- <div id="featured-content">
+          
+        </div> -->
+        <div id="results-content">
+          <ul></ul>
+        </div>
+      </div>
+      <section class="search-results js-search-results"></section>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>
