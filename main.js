@@ -1,5 +1,6 @@
 const searchForm = document.getElementById("search-form");
-const searchInput = document.getElementById("search-input")
+const searchInput = document.getElementById("search-input");
+const resultsContent = document.getElementById("results-content")
 
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -7,34 +8,41 @@ searchForm.addEventListener("submit", (e) => {
 });
 
 function displayResults(searchQuery) {
-  const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchQuery}`;
-  console.log(url)
+  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=30&srsearch=${searchQuery}`;
+
+  fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const resultsArray = data.query.search;
+      results(resultsArray);
+    })
+    .catch(() => {
+      console.log("Error! Could not search Wikipedia API!");
+    });
+
+  function results(array) {
+    resultsContent.innerHTML = "";
+    resultsContent.insertAdjacentHTML(
+      "beforeend",
+      `<h1>Seeing results for ${searchInput.value}...</h1>`
+    );
+    array.forEach((article) => {
+      const articleTitle = article.title;
+      const articleSnippet = article.snippet;
+      const articleUrl = encodeURI(
+        `https://en.wikipedia.org/wiki/${article.title}`
+      );
+
+      resultsContent.insertAdjacentHTML(
+        "beforeend",
+        `<div class="resultArticle">
+    <h2 class="resultTitle">
+    <a href="${articleUrl}" target="_blank" rel="noopener">${articleTitle}</a>
+    </h2>
+    <p class="resultSnippet"><a href="${articleUrl}" target="_blank" rel="noopener">
+  ${articleSnippet}</a></p>
+    </div>`
+      );
+    });
+  }
 }
-
-
-
-// searchForm.addEventListener("submit", handleSubmit);
-
-// async function handleSubmit(event) {
-//   event.preventDefault();
-//   const searchValue = document.querySelector("#search-input").value;
-//   const searchQuery = searchValue.trim();
-
-//   try {
-//     const results = await searchWikipedia(searchQuery);
-//     console.log(results);
-//   } catch (err) {
-//     console.log(err);
-//     alert("Failed to search wikipedia");
-//   }
-// }
-
-// async function searchWikipedia(searchQuery) {
-//   const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${searchQuery}`;
-//   const response = await fetch(endpoint);
-//   if (!response.ok) {
-//     throw Error(response.statusText);
-//   }
-//   const json = await response.json();
-//   return json;
-// }

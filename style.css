@@ -5,7 +5,7 @@ html {
 
 
 :root {
-  --bg-color: #292a2e;
+  --bg-color: #2c2933;
   --border-color: #575757;
   --primary-color: #3F3F3F;
   --secondary-color: whitesmoke;
@@ -100,25 +100,6 @@ body {
   margin: 0 auto;
 }
 
-.result-item {
-  margin-bottom: 20px;
-}
-
-.result-title {
-  font-size: 22px;
-}
-
-.result-snippet {
-  font-size: 15px;
-  color: #444;
-}
-
-.result-link {
-  color: #006621;
-  text-decoration: none;
-  display: block;
-  overflow-wrap: break-word;
-}
 
 
 
