@@ -1,29 +1,35 @@
 html {
   box-sizing: border-box;
-  font-family: 'Courier New', Courier, monospace
+  font-family: "Courier New", Courier, monospace;
 }
 
-
 :root {
-  --bg-color: #2d2d35;
+  --bg-color: #2a2a30;
   --border-color: #575757;
-  --primary-color: #3F3F3F;
+  --primary-color: #3a3a3a;
   --secondary-color: whitesmoke;
 }
 
 body {
   background-color: var(--bg-color);
   font-family: monospace;
+  margin: 0;
+}
 
+.barbie-mode {
+  background-color: palevioletred;
 }
 
 .header {
   display: flex;
+  position: fixed;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 1.9rem 1.3rem;
-  margin-bottom: 40px;
+  padding: 2rem 1.3rem;
+  width: 100%;
+  background-color: var(--bg-color);
+  transition: 0.4s;
 }
 
 .logo {
@@ -73,7 +79,7 @@ body {
   color: #999999;
 }
 
-#submitBtn {
+#submit-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,63 +91,47 @@ body {
   transition-duration: 0.2s;
 }
 
-#submitBtn i {
+#submit-btn i {
   color: var(--secondary-color);
   font-size: 1.5rem;
 }
 
-#submitBtn:active {
+#submit-btn:active {
   border-color: var(--secondary-color);
 }
 
-.search-results {
-  width: 100%;
-  max-width: 700px;
+#main {
+  width: 80%;
   margin: 0 auto;
+  padding-top: 220px;
 }
 
-
-
-
-
-
-@keyframes sk-chase {
-  100% {
-    transform: rotate(360deg);
-  }
+#total-results {
+  color: var(--secondary-color);
+  background-color: var(--bg-color);
 }
 
-@keyframes sk-chase-dot {
-
-  80%,
-  100% {
-    transform: rotate(360deg);
-  }
+.result-article {
+  display: inherit;
+  padding: 1rem;
+  margin: 1.2rem 0;
+  background-color: var(--primary-color);
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.25s ease-in-out;
 }
 
-@keyframes sk-chase-dot-before {
-  50% {
-    transform: scale(0.4);
-  }
-
-  100%,
-  0% {
-    transform: scale(1.0);
-  }
+.result-article:hover {
+  border-color: var(--secondary-color);
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+  padding: 1.5rem;
 }
 
-@media screen and (max-width: 550px) {
-  .search-form {
-    width: 100%;
-  }
+.result-title a {
+  color: var(--secondary-color);
+}
 
-  .search-input {
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .search-results {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+.result-snippet a {
+  color: var(--secondary-color);
 }

@@ -8,7 +8,7 @@ searchForm.addEventListener("submit", (e) => {
 });
 
 function displayResults(searchQuery) {
-  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=30&srsearch=${searchQuery}`;
+  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${searchQuery}`;
 
   fetch(endpoint)
     .then((response) => response.json())
@@ -19,7 +19,7 @@ function displayResults(searchQuery) {
       console.log(resultsArray)
     })
     .catch(() => {
-      console.log("Error! Could not search Wikipedia API!");
+      console.log("Error! Could not search Wikipedia API, so here's a quote from Oppenheimer!: 'Now I am become Death, the destroyer of worlds.'");
     });
 
   function results(array, info) {
