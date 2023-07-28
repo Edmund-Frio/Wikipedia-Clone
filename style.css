@@ -14,6 +14,7 @@ body {
   background-color: var(--bg-color);
   font-family: monospace;
   margin: 0;
+  height: 100vh;
 }
 
 .barbie-mode {
@@ -100,10 +101,11 @@ body {
   border-color: var(--secondary-color);
 }
 
-#main {
+#content {
   width: 80%;
   margin: 0 auto;
   padding-top: 220px;
+  height: 100vh;
 }
 
 #total-results {
@@ -134,4 +136,13 @@ body {
 
 .result-snippet a {
   color: var(--secondary-color);
+}
+
+#menu {
+  position: fixed;
+  padding: 1rem;
+  width: 100%;
+  bottom: 0;
+  backdrop-filter: blur(0.5rem);
+  background: #ffffff02;
 }
