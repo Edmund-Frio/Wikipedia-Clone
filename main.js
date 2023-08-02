@@ -1,52 +1,63 @@
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
-const resultsContent = document.getElementById("results-content")
+const resultsContainer = document.getElementById("results-container");
 
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  displayResults(searchInput.value);
+  getData(searchInput.value);
 });
 
-function displayResults(searchQuery) {
-  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${searchQuery}`;
+function getData(searchQuery) {
+  const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&sroffset=100&srlimit=20&srsearch=${searchQuery}`;
 
-  fetch(endpoint)
+  fetch(searchUrl)
     .then((response) => response.json())
     .then((data) => {
-      const resultsArray = data.query.search;
       const resultsInfo = data.query.searchinfo;
-      results(resultsArray, resultsInfo);
-      console.log(resultsArray)
+      const resultsArray = data.query.search;
+      const resultsLength = data.query.search.length;
+      displayResultsInfo(resultsInfo);
+      displayArticleContent(resultsArray, resultsLength);
+      console.log(data);
     })
     .catch(() => {
-      console.log("Error! Could not search Wikipedia API, so here's a quote from Oppenheimer!: 'Now I am become Death, the destroyer of worlds.'");
+      console.log(
+        `Error! Could not search Wikipedia API, so here's a quote from Oppenheimer!: "Now I am become Death, the destroyer of worlds."`
+      );
     });
+}
 
-  function results(array, info) {
-    const totalResults = info.totalhits
+function searchWikipedia() {
+  getData();
+}
 
-    resultsContent.innerHTML = "";
-    resultsContent.insertAdjacentHTML(
-      "beforeend",
-      `<h1 id="total-results">Seeing ${totalResults} results for ${searchInput.value}...</h1>`
+function displayResultsInfo(info) {
+  const totalResults = info.totalhits;
+
+  resultsContainer.innerHTML = "";
+  resultsContainer.insertAdjacentHTML(
+    "beforeend",
+    `<h1 id="total-results">Seeing ${totalResults} results for ${searchInput.value}...</h1>`
+  );
+}
+
+function displayArticleContent(array, length) {
+  const continueBtn = document.createElement("button");
+
+  array.forEach((article) => {
+    const articleTitle = article.title;
+    const articleSnippet = article.snippet;
+    const articleUrl = encodeURI(
+      `https://en.wikipedia.org/wiki/${article.title}`
     );
-    array.forEach((article) => {
-      const articleTitle = article.title;
-      const articleSnippet = article.snippet;
-      const articleUrl = encodeURI(
-        `https://en.wikipedia.org/wiki/${article.title}`
-      );
+    const articleContent = `<div class="result-article">
+  <h2 class="result-title">
+  <a href="${articleUrl}" target="_blank" rel="noopener">${articleTitle}</a>
+  </h2>
+  <p class="result-snippet"><a href="${articleUrl}" target="_blank" rel="noopener">
+${articleSnippet}</a></p>
+  </div>`;
 
-      resultsContent.insertAdjacentHTML(
-        "beforeend",
-        `<div class="result-article">
-    <h2 class="result-title">
-    <a href="${articleUrl}" target="_blank" rel="noopener">${articleTitle}</a>
-    </h2>
-    <p class="result-snippet"><a href="${articleUrl}" target="_blank" rel="noopener">
-  ${articleSnippet}</a></p>
-    </div>`
-      );
-    });
-  }
+    resultsContainer.insertAdjacentHTML("beforeend", articleContent);
+  });
 }
