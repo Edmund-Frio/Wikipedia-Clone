@@ -33,9 +33,9 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
-  font-size: 3.2rem;
+  font-size: 3rem;
   color: var(--secondary-color);
-  gap: 1.5rem;
+  gap: 1.3rem;
 }
 
 .logo #subtext {
@@ -122,7 +122,6 @@ body {
 #content {
   width: 80%;
   margin: 0 auto;
-  overflow-y: auto;
   padding-top: 170px;
 }
 
