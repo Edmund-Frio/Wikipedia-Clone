@@ -46,16 +46,22 @@ function displayArticleContent(array, length) {
 
   array.forEach((article) => {
     const articleTitle = article.title;
+    const timestamp = article.timestamp;
+    const wordCount = article.wordcount;
     const articleSnippet = article.snippet;
     const articleUrl = encodeURI(
       `https://en.wikipedia.org/wiki/${article.title}`
     );
     const articleContent = `<div class="result-article">
-  <h2 class="result-title">
+  <h2 class="article-title">
   <a href="${articleUrl}" target="_blank" rel="noopener">${articleTitle}</a>
   </h2>
-  <p class="result-snippet"><a href="${articleUrl}" target="_blank" rel="noopener">
-${articleSnippet}</a></p>
+  <ul class="label-list">
+  <li> Word Count: <span class="label-value">${wordCount}</span></li>
+  <li> Timestamp: <span class="label-value">${timestamp}</span></li>
+  </ul>
+  <p class="article-snippet">
+${articleSnippet}</p>
   </div>`;
 
     resultsContainer.insertAdjacentHTML("beforeend", articleContent);
