@@ -138,7 +138,6 @@ body {
 .article-title a {
   color: var(--secondary-color);
   text-decoration: none;
-  padding: 0.3rem;
   border-bottom: 1px solid var(--tertiary-color);
 }
 
@@ -152,11 +151,11 @@ body {
 }
 
 .label-list {
-  display: flex;
+  display: inline-flex;
   list-style: none;
   gap: 1rem;
   margin-top: 0.4rem;
-  padding: 0.3rem;
+  padding: 0 0.3rem;
   width: 100%;
   font-size: 12px;
   border-radius: 3px 2px;

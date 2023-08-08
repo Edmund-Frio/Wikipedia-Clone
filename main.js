@@ -4,11 +4,11 @@ const resultsContainer = document.getElementById("results-container");
 
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  getData(searchInput.value);
+  getSearchData(searchInput.value);
 });
 
-function getData(searchQuery) {
-  const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&sroffset=100&srlimit=20&srsearch=${searchQuery}`;
+function getSearchData(searchQuery) {
+  const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&sroffset=1000&srlimit=20&srsearch=${searchQuery}`;
 
   fetch(searchUrl)
     .then((response) => response.json())
@@ -27,12 +27,8 @@ function getData(searchQuery) {
     });
 }
 
-function searchWikipedia() {
-  getData();
-}
-
 function displayResultsInfo(info) {
-  const totalResults = info.totalhits;
+  const totalResults = info.totalhits.toLocaleString("en-US");
 
   resultsContainer.innerHTML = "";
   resultsContainer.insertAdjacentHTML(
@@ -46,12 +42,13 @@ function displayArticleContent(array, length) {
 
   array.forEach((article) => {
     const articleTitle = article.title;
-    const timestamp = article.timestamp;
-    const wordCount = article.wordcount;
+    const timestamp = article.timestamp.replace("T", " | ").replace("Z", "");
+    const wordCount = article.wordcount.toLocaleString("en-US");
     const articleSnippet = article.snippet;
     const articleUrl = encodeURI(
       `https://en.wikipedia.org/wiki/${article.title}`
     );
+
     const articleContent = `<div class="result-article">
   <h2 class="article-title">
   <a href="${articleUrl}" target="_blank" rel="noopener">${articleTitle}</a>
